@@ -1,11 +1,12 @@
 package com.halflkaka.bookapi.controllers;
 
 import com.halflkaka.bookapi.models.Book;
+import com.halflkaka.bookapi.models.ProjectStatus;
 import com.halflkaka.bookapi.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,8 +27,31 @@ public class BookController {
     }
 
     //Get all the books
-    @GetMapping
+    @GetMapping()
     List<Book> getAllBooks() {
         return bookService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable long id) {
+        return bookService.get(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<ProjectStatus> saveBook(@RequestBody Book book) {
+        long id = bookService.save(book);
+        return new ResponseEntity<ProjectStatus>(new ProjectStatus("Book with id: " + id + " has been saved."), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectStatus> updateBook(@PathVariable long id, @RequestBody Book book) {
+        bookService.update(id, book);
+        return new ResponseEntity<ProjectStatus>(new ProjectStatus("Book with id: " + id + " has been updated."), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProjectStatus> deleteBook(@PathVariable long id) {
+        bookService.delete(id);
+        return new ResponseEntity<ProjectStatus>(new ProjectStatus("Book with id: " + id + " has been deleted."), HttpStatus.OK);
     }
 }

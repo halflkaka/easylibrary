@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book get(long id) {
-        return bookRepository.getOne(id);
+        return bookRepository.findById(id).get();
     }
 
     @Override
@@ -34,10 +34,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void update(long id, Book book) {
+        Book oldBook = bookRepository.findById(id).get();
+        oldBook.setTitle(book.getTitle());
+        oldBook.setAuthor(book.getAuthor());
+        bookRepository.flush();
     }
 
     @Override
     public void delete(long id) {
-
+        bookRepository.deleteById(id);
     }
 }
