@@ -14,6 +14,7 @@ import java.util.List;
  * Created by Canjie on 2019-01-13 20:07
  */
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(BookController.BASE_URL)
 public class BookController {
