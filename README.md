@@ -1,7 +1,7 @@
 # EasyLibrary
 
-#Framework
-Spring Boot + Angular.js + MySQL
+# Framework
+Spring Boot + Angular.js + MySQL
 # Usage
 Open the project in IntelliJ IDEA. Run the server.    
 `cd angularjs`  
